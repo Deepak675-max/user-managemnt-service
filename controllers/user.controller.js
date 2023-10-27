@@ -135,6 +135,28 @@ const loginUser = async (req, res, next) => {
     }
 }
 
+const getUserFromToken = async (req, res, next) => {
+    try {
+        const userDetails = {
+            userId: req.user._id,
+            userName: req.user.userName,
+            email: req.user.email,
+        };
+        if (res.headersSent === false) {
+            res.status(200).send({
+                error: false,
+                data: {
+                    user: userDetails,
+                    message: "User fetched successfully",
+                },
+            });
+        }
+    } catch (error) {
+        if (error?.isJoi === true) error.status = 422;
+        next(error);
+    }
+}
+
 const logoutUser = async (req, res, next) => {
     try {
         // Check if Payload contains appAgentId
