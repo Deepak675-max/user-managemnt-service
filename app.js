@@ -5,7 +5,9 @@ const {
 } = require("./helper/common/init_socket.io")
 require('./helper/common/init_mongodb');
 require('./helper/common/init_redis');
+const bodyParser = require('body-parser');
 
+userManagementBackendApp.use(bodyParser.json());
 
 const { v1 } = require("./helper/common/route_versions/v1");
 
@@ -33,7 +35,7 @@ userManagementBackendApp.use((error, req, res, next) => {
   next();
 });
 
-const port = process.env.APP_PORT || 3000
+const port = process.env.APP_PORT || 3500
 
 httpServer.listen(port, () => {
   console.log(`Application is running on: ${port}`);

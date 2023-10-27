@@ -1,13 +1,10 @@
 const express = require("express");
 const v1 = express.Router();
 
-// /** Application Core Routes */
-// const {
-//   taskRouter,
-// } = require("../../../routes/task.route");
-// v1.use("/task", taskRouter);
+const { userRouter } = require('../../../routes/user.route');
+v1.use('/user', userRouter);
 
 
 module.exports = {
-  v1,
+  v1
 };
