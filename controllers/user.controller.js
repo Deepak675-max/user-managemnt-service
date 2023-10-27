@@ -135,9 +135,41 @@ const loginUser = async (req, res, next) => {
     }
 }
 
+const logoutUser = async (req, res, next) => {
+    try {
+        // Check if Payload contains appAgentId
+        if (!req.user._id) {
+            throw httpErrors.UnprocessableEntity(
+                `JWT Refresh Token error : Missing Payload Data`
+            );
+        }
+        // Delete Refresh Token from Redis DB
+        await jwtModule
+            .removeToken({
+                userId: req.user._id,
+            })
+            .catch((error) => {
+                throw httpErrors.InternalServerError(
+                    `JWT Access Token error : ${error.message}`
+                );
+            });
+
+        res.status(200).send({
+            error: false,
+            data: {
+                message: "User logged out successfully.",
+            },
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+
 module.exports = {
     createUser,
     getUsers,
     deleteUser,
-    loginUser
+    loginUser,
+    logoutUser
 }
