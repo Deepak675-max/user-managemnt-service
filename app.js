@@ -6,8 +6,11 @@ const {
 require('./helper/common/init_mongodb');
 require('./helper/common/init_redis');
 const bodyParser = require('body-parser');
+const cors = require("cors")
+const httpErrors = require('http-errors')
 
 userManagementBackendApp.use(bodyParser.json());
+userManagementBackendApp.use(cors());
 
 const { v1 } = require("./helper/common/route_versions/v1");
 

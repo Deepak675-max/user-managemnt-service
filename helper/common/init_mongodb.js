@@ -1,7 +1,7 @@
 // Import Packages
 const mongoose = require("mongoose");
 
-const mongodbURI = 'mongodb://localhost:27017'
+const mongodbURI = 'mongodb://127.0.0.1:27017'
 // Establish Connection to MongoDB Server
 mongoose.set("strictQuery", false);
 mongoose
